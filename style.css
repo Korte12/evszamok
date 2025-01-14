@@ -1,0 +1,23 @@
+table td,th {
+    border: 1px solid black;
+}
+
+table{
+    border-collapse: collapse;
+}
+
+thead {
+    background-color: gray;
+}
+
+td:nth-last-of-type(4){
+    background-color: darkcyan;
+}
+
+td:nth-last-of-type(2){
+    background-color: darkcyan;
+}
+
+.error{
+    color: red;
+}

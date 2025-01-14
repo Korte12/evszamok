@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evszamok</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Időszak</th>
+                <th>Évszám</th>
+                <th>Esemény</th>
+                <th>Tananyag</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td rowspan="2">XVI. század</td>
+                <td>1514</td>
+                <td>Dózsa-féle parasztháború</td>
+                <td>magyar</td>
+            </tr>
+            <tr>
+                <td>1519-1522</td>
+                <td>Magellán körülhajózza a földet</td>
+                <td>egyetemes</td>
+            </tr>
+            <tr>
+                <td>XVII. század</td>
+                <td>1664</td>
+                <td>vasvári béke</td>
+                <td>magyar</td>
+            </tr>
+
+            <tr>
+                <td rowspan="2">XVIII. század</td>
+                <td>1701-1714</td>
+                <td>spanyol örökösödési háború</td>
+                <td>egyetemes</td>
+            </tr>
+            <tr>
+                <td>1703-1711</td>
+                <td>Rákóczi szabadságharc</td>
+                <td>magyar</td>
+            </tr>
+
+            <tr>
+                <td rowspan="2">XIX. század</td>
+                <td>1812</td>
+                <td>Napóleon oroszországi hadjárata</td>
+                <td>egyetemes</td>     
+            </tr>
+            <tr>
+                <td>1809</td>
+                <td>győri csata</td>
+                <td>magyar</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <form id="form" action="#">
+        <label for="korszak">Korszak megnevezés:</label><br>
+        <input type="text" id="korszak" name="korszak"><br><br>
+
+        <label for="evszam1">1. esemény évszám:</label><br>
+        <input type="text" id="evszam1" name="evszam1"><br><br>
+
+        <label for="megnev1">1. esemény megnevezés:</label><br>
+        <input type="text" id="megnev1" name="megnev1"><br><br>
+
+        <label for="tan1">1. esemény tananyag:</label><br>
+        <select name="tan1" id="tan1">
+            <option value=""></option>
+            <option value="magyar">Magyar történelem</option>
+            <option value="egyetemes">Egyetemes történelem</option>
+        </select><br><br>
+
+        <label for="evszam2">2. esemény évszám:</label><br>
+        <input type="text" id="evszam2" name="evszam2"><br><br>
+
+        <label for="megnev2">2. esemény megnevezés:</label><br>
+        <input type="text" id="megnev2" name="megnev2"><br><br>
+
+        <label for="tan2">2. esemény tananyag:</label><br>
+        <select name="tan2" id="tan2">
+            <option value=""></option>
+            <option value="magyar">Magyar történelem</option>
+            <option value="egyetemes">Egyetemes történelem</option>
+        </select><br><br>
+
+        <button>Hozzáadás</button>
+    </form>
+
+</body>
+<br>
+<script src="main.js"></script>
+
+</html>
