@@ -34,6 +34,40 @@ const array = [
     },
 ]
 
+const formL = [
+    {
+        label: "Korszak megnevezése: ",
+        id: "korszak",
+    },
+    {
+        label: "1. esemény évszám:",
+        id: "evszam1",
+    },
+    {
+        label: "1. esemény megnevezés:",
+        id: "megnev1",
+    },
+    {
+        label: "1. esemény tananyag:",
+        id: "tan1",
+    },
+    {
+        label: "2. esemény évszám:",
+        id: "evszam2",
+    },
+    {
+        label: "2. esemény megnevezés:",
+        id: "megnev2",
+    },
+    {
+        label: "2. esemény tananyag:",
+        id: "tan2",
+    },
+    
+]
+
+generateForm(formL) //Meghivom a függvényt
+
 const table = document.createElement('table'); //Létrehozom a table-t
 document.body.appendChild(table);//Hozzá appendelem a body-hoz
 
@@ -125,6 +159,94 @@ function generateHeader(){ //Függvényt definiálunk
             tr.appendChild(th) //Hozzá appendeljük a sorhoz a th-t
         }
      
+    }
+
+    function generateForm(formD) {  
+        const form = document.createElement('form'); // Létrehozom a form elemet
+        document.body.appendChild(form); // Hozzáadom a formot a body-hoz
+        form.id = "form"; // Beállítom a form id-ját 'form' értékre
+        form.action = "#"; // Beállítom a form action-ját '#'-ra
+    
+        for (let i = 0; i < formD.length; i++) { // Végigiterálok a formon
+            const aktualis = formD[i]; // Hivatkozok az aktuális form elemre
+            
+            if (aktualis.id == 'tan1' || aktualis.id == 'tan2') { // Ha az id 'tan1' vagy 'tan2'
+                const div = document.createElement('div'); // Létrehozok egy div elemet
+                form.appendChild(div); // Hozzáadom a div-et a formhoz
+                
+                const label = document.createElement('label'); // Létrehozom a label elemet
+                label.innerHTML = aktualis.label; // Beállítom a label szövegét
+                div.appendChild(label); // Hozzáadom a div-hez
+                
+                const br1 = document.createElement('br'); // Sortörést hozok létre
+                div.appendChild(br1); // Hozzáadom a div-hez
+                
+                const select = document.createElement('select'); // Létrehozom a select elemet
+                select.id = aktualis.id; // A select id-ja megegyezik az aktuális id-val
+                select.name = aktualis.id; // A select name-je is az aktuális id-val egyezik
+                
+  
+                const option1 = document.createElement('option'); // Létrehozom a otpion elemet
+                option1.value = '';  //Az értéke semmi
+                option1.innerHTML = ''; // Üres érték
+                select.appendChild(option1); // Hozzáadom a select-hez
+                
+        
+                const option2 = document.createElement('option'); // Létrehozom a option elemet
+                option2.value = 'magyar'; //Értéke magyar
+                option2.innerHTML = 'Magyar történelem'; // Beállítom az innerhtml szövegét
+                select.appendChild(option2); // Hozzáadom a select-hez
+                
+                
+                const option3 = document.createElement('option'); // Létrehozom a option elemet
+                option3.value = 'egyetemes'; //Értéke egyetemes
+                option3.innerHTML = 'Egyetemes történelem'; // Beállítom az innerhtml szövegét
+                select.appendChild(option3); // Hozzáadom a select-hez
+                
+                div.appendChild(select); // Hozzáadom a select-et a div-hez
+                
+                const br2 = document.createElement('br'); // Sortörést hozok létre
+                div.appendChild(br2); // Hozzáadom a div-hez
+                
+                const span = document.createElement('span'); // Létrehozok egy span elemet
+                span.classList = "error"; // Az osztálya 'error' lesz
+                div.appendChild(span); // Hozzáadom a span-t a div-hez
+                
+                const br3 = document.createElement('br'); // Sortörést hozok létre
+                div.appendChild(br3); // Hozzáadom a div-hez
+
+            } else { // Ha az id nem 'tan1' vagy 'tan2'
+                const div = document.createElement('div'); // Létrehozom a div elemet
+                form.appendChild(div); // Hozzáadom a div-et a formhoz
+                
+                const label = document.createElement('label'); // Létrehozom a label elemet
+                label.innerHTML = aktualis.label; // Beállítom a label szövegét
+                div.appendChild(label); // Hozzáadom a div-hez
+                
+                const br1 = document.createElement('br'); // Sortörést hozok létre
+                div.appendChild(br1); // Hozzáadom a div-hez
+                
+                const input = document.createElement('input'); // Létrehozom az input elemet
+                input.type = "text"; // Az input típusa 'text'
+                input.id = aktualis.id; // Az input id-ja megegyezik az aktuális id-val
+                input.name = aktualis.id; // Az input name-je is az aktuális id-val egyezik
+                div.appendChild(input); // Hozzáadom az input-ot a div-hez
+                
+                const br2 = document.createElement('br'); // Sortörést hozok létre
+                div.appendChild(br2); // Hozzáadom a div-hez
+                
+                const span = document.createElement('span'); // Létrehozok egy span elemet
+                span.classList = "error"; // Az osztálya 'error' lesz
+                div.appendChild(span); // Hozzáadom a span-t a div-hez
+                
+                const br3 = document.createElement('br'); // Sortörést hozok létre
+                div.appendChild(br3); // Hozzáadom a div-hez
+            }
+        }
+    
+        const button = document.createElement('button'); // Létrehozok egy gombot
+        button.innerHTML = "Hozzáadás"; // A gomb szövege "Hozzáadás"
+        form.appendChild(button); // Hozzáadom a gombot a formhoz
     }
     
 const form = document.getElementById("form") //Lekérem a html form id-ját
