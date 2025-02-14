@@ -1,174 +1,141 @@
+const array = [
+    {
+        ido: "XVI. század",
+        evszam: "1514",
+        esemeny: "Dózsa-féle parasztháború",
+        tananyag: "magyar",
+        evszam2: "1519-1522",
+        esemeny2: "Magellán körülhajózza a földet",
+        tananyag2: "egyetemes"
+    },
+    {
+        ido: "XVII. század",
+        evszam: "1664",
+        esemeny: "vasvári béke",
+        tananyag: "magyar"
+    },
+    {
+        ido: "XVIII. század",
+        evszam: "1701-1714",
+        esemeny: "spanyol örökösödési háború",
+        tananyag: "egyetemes",
+        evszam2: "1703-1711",
+        esemeny2: "Rákóczi szabadságharc",
+        tananyag2: "magyar"
+    },
+    {
+        ido: "XIX. század",
+        evszam: "1812",
+        esemeny: "Napóleon oroszországi hadjárata",
+        tananyag: "egyetemes",
+        evszam2: "1809",
+        esemeny2: "győri csata",
+        tananyag2: "magyar"
+    },
+]
+
 const table = document.createElement('table'); //Létrehozom a table-t
 document.body.appendChild(table);//Hozzá appendelem a body-hoz
 
-const thead = document.createElement('thead');//Létrehozom a thead-et
-table.appendChild(thead);//Hozzá appendelem a table-hez
+const tbody = document.createElement('tbody') //Létrehozok egy tbody elemet
+table.appendChild(tbody) //Hozzá appendelem a táblázathoz
 
-const tr = document.createElement('tr');//Létrehozom a tr-t
-thead.appendChild(tr);//Hozzá appendelem a thead-hez
+generateHeader() //Meghivom a header függvényt
 
-const th1 = document.createElement('th');//Létrehozom az első th-t
-th1.innerHTML = "Időszak"; //Megadom az értékét
-tr.appendChild(th1);//Hozzá appendelem a sorhoz
+function renderTable() {
+    tbody.innerHTML = ''; // tbody innerHTML-je üres string
 
-const th2 = document.createElement('th');//Létrehozom a második th-t
-th2.innerHTML = "Évszám";//Megadom az értékét
-tr.appendChild(th2);//Hozzá appendelem a sorhoz
+    for (let i = 0; i < array.length; i++) { // Végig iterálok az array tömbön
+        const tr = document.createElement('tr'); // Létrehozok egy tr elemet
+        tbody.appendChild(tr); // Hozzá appendelem a tbody-hoz
 
-const th3 = document.createElement('th');//Létrehozom a harmadik th-t
-th3.innerHTML = "Esemény";//Megadom az értékét
-th3.colSpan = 2;//colSpan-t állitok be hogy jó legyen az elrendezés
-tr.appendChild(th3);//Hozzá appendelem a sorhoz
+        const cell1 = document.createElement('td'); // Létrehozok egy td elemet
+        cell1.innerHTML = array[i].ido; // Megadom az értékét
+        cell1.rowSpan = array[i].evszam2 ? 2 : 1; // Ha van evszam2, akkor két sor jön létre, egyébként csak egy sor
+        tr.appendChild(cell1); // Hozzá appendelem a tr-hez
 
-const th4 = document.createElement('th');//Létrehozom a harmadik th-t
-th4.innerHTML = "Tananyag";//Megadom az értékét
-tr.appendChild(th4);//Hozzá appendelem a sorhoz
+        const cell2 = document.createElement('td'); // Létrehozok egy td elemet
+        cell2.innerHTML = array[i].evszam; // Megadom az értékét
+        tr.appendChild(cell2); // Hozzá appendelem a tr-hez
 
-const tbody = document.createElement('tbody');//Létrehozom a tbody-t
-table.appendChild(tbody);//Hozzá appendelem a table-hez
+        const cell3 = document.createElement('td'); // Létrehozok egy td elemet
+        cell3.innerHTML = array[i].esemeny; // Megadom az értékét
+        tr.appendChild(cell3); // Hozzá appendelem a tr-hez
 
+        const cell4 = document.createElement('td'); // Létrehozok egy td elemet
+        cell4.innerHTML = array[i].tananyag; // Megadom az értékét
+        tr.appendChild(cell4); // Hozzá appendelem a tr-hez
 
-const row1 = document.createElement('tr');//Létrehozom az első sort
-tbody.appendChild(row1);// Hozzá appendelem a tbody-hoz
+        if (array[i].evszam2) { // Ha van második évszám
+            const tr2 = document.createElement('tr'); // Létrehozok egy új tr elemet a második sor számára
+            tbody.appendChild(tr2); // Hozzáadom a tbody-hoz
 
+            const cell5 = document.createElement('td'); // Létrehozok egy td elemet
+            cell5.innerHTML = array[i].evszam2; // Megadom az értékét
+            tr2.appendChild(cell5); // Hozzá appendelem a tr2-höz
 
-const cell1_1 = document.createElement('td');//Létrehozok egy td-t a táblázat egyik celláját
-cell1_1.innerHTML = "XVI. század";//Megadom az értékét
-cell1_1.rowSpan = 2;//rowSpan-t állitok be hogy jó legyen az elrendezés
-row1.appendChild(cell1_1);//Hozzá appendelem a sorhoz a cellát
+            const cell6 = document.createElement('td'); // Létrehozok egy td elemet
+            cell6.innerHTML = array[i].esemeny2; // Megadom az értékét
+            tr2.appendChild(cell6); // Hozzá appendelem a tr2-höz
 
-const cell1_2 = document.createElement('td');//Létrehozok egy td-t a táblázat egyik celláját
-cell1_2.innerHTML = "1514";//Megadom az értékét
-row1.appendChild(cell1_2);//Hozzá appendelem a sorhoz a cellát
+            const cell7 = document.createElement('td'); // Létrehozok egy td elemet
+            cell7.innerHTML = array[i].tananyag2; // Megadom az értékét
+            tr2.appendChild(cell7); // Hozzá appendelem a tr2-höz
+        }
+    }
+}
 
-const cell1_3 = document.createElement('td');//Létrehozok egy td-t a táblázat egyik celláját
-cell1_3.innerHTML = "Dózsa-féle parasztháború";//Megadom az értékét
-cell1_3.colSpan = 2;//colSpan-t állitok be hogy jó legyen az elrendezés
-row1.appendChild(cell1_3);//Hozzá appendelem a sorhoz a cellát
+renderTable() //Meghivom a renderTable függvényt és az array paramétert fogja kapni
 
-const cell1_4 = document.createElement('td');//Létrehozok egy td-t a táblázat egyik celláját
-cell1_4.innerHTML = "magyar";//Megadom az értékét
-row1.appendChild(cell1_4);//Hozzá appendelem a sorhoz a cellát
+function generateHeader(){ //Függvényt definiálunk
+    const thead = document.createElement('thead'); //Létrehozok egy thead elemet
+    table.appendChild(thead);//Hozzá appendelem a táblázathoz
+    const tr = document.createElement('tr');//Létrehozok egy sor elemet
+    const headerW = ["Időszak", "Évszám", "Esemény", "Tananyag"];
+    thead.appendChild(tr);//Hozzá appendelem a fej részhez
+    for (let i = 0; i < headerW.length; i++) { // Végigiterálunk a headerW tömb elemein
+        const th = document.createElement('th'); //Létrehozok egy th-t
+        th.innerHTML = headerW[i]; //A th innerHTML-je lesz az aktuális headerW elem értéke
+        if (i === 2) { // Hogyha az i megyezik kettővel (harmadik oszlop)
+            th.colSpan = 1; // Beállítjuk a colspan értékét 1-re
+        }
+            tr.appendChild(th) //Hozzá appendeljük a sorhoz a th-t
+        }
+     
+    }
+    
+const form = document.getElementById("form") //Lekérem a html form id-ját
+form.addEventListener('submit', function(e){//Eseménykezelőt adok a form-hoz
+    e.preventDefault()//Megakadályozom hogy a böngésző alapártelmezetten lefusson
+    const idoH = document.getElementById("korszak")//Lekérem a html form id-ját
+    const evszamH = document.getElementById("evszam1")//Lekérem a html form id-ját
+    const esemenyH = document.getElementById("megnev1")//Lekérem a html form id-ját
+    const tananyagH = document.getElementById("tan1")//Lekérem a html form id-ját
+    const evszam2H = document.getElementById("evszam2")//Lekérem a html form id-ját
+    const esemeny2H = document.getElementById("megnev2")//Lekérem a html form id-ját
+    const tananyag2H = document.getElementById("tan2")//Lekérem a html form id-ját
 
+    const idoV = idoH.value ///Eltárolom egy változóban az értéket
+    const evszamV = evszamH.value///Eltárolom egy változóban az értéket
+    const esemenyV = esemenyH.value///Eltárolom egy változóban az értéket
+    const tananyagV = tananyagH.value///Eltárolom egy változóban az értéket
+    const evszam2V = evszam2H.value///Eltárolom egy változóban az értéket
+    const esemeny2V = esemeny2H.value///Eltárolom egy változóban az értéket
+    const tananyag2V = tananyag2H.value///Eltárolom egy változóban az értéket
 
+    const thisForm = e.currentTarget //Az aktuális form
 
-const row2 = document.createElement('tr');//Létrehozom a második sort
-tbody.appendChild(row2);// Hozzá appendelem a tbody-hoz
-
-
-const cell2_1 = document.createElement('td');//Létrehozok egy td-t a táblázat egyik celláját
-cell2_1.innerHTML = "1519-1522";//Megadom az értékét
-row2.appendChild(cell2_1);//Hozzá appendelem a sorhoz a cellát
-
-const cell2_2 = document.createElement('td');//Létrehozok egy td-t a táblázat egyik celláját
-cell2_2.innerHTML = "Magellán körülhajózza a földet";//Megadom az értékét
-cell2_2.colSpan = 2;//colSpan-t állitok be hogy jó legyen az elrendezés
-row2.appendChild(cell2_2);//Hozzá appendelem a sorhoz a cellát
-
-const cell2_3 = document.createElement('td');//Létrehozok egy td-t a táblázat egyik celláját
-cell2_3.innerHTML = "egyetemes";//Megadom az értékét
-cell2_3.colSpan = 2;//colSpan-t állitok be hogy jó legyen az elrendezés
-row2.appendChild(cell2_3);//Hozzá appendelem a sorhoz a cellát
-
-
-
-const row3 = document.createElement('tr');//Létrehozom a harmadik sort
-tbody.appendChild(row3);// Hozzá appendelem a tbody-hoz
-
-
-const cell3_1 = document.createElement('td');//Létrehozok egy td-t a táblázat egyik celláját
-cell3_1.innerHTML = "XVII. század";//Megadom az értékét
-
-row3.appendChild(cell3_1);//Hozzá appendelem a sorhoz a cellát
-
-const cell3_2 = document.createElement('td');//Létrehozok egy td-t a táblázat egyik celláját
-cell3_2.innerHTML = "1664";//Megadom az értékét
-row3.appendChild(cell3_2);//Hozzá appendelem a sorhoz a cellát
-
-const cell3_3 = document.createElement('td');//Létrehozok egy td-t a táblázat egyik celláját
-cell3_3.innerHTML = "vasvári béke";//Megadom az értékét
-cell3_3.colSpan = 2;//colSpan-t állitok be hogy jó legyen az elrendezés
-row3.appendChild(cell3_3);//Hozzá appendelem a sorhoz a cellát
-
-const cell3_4 = document.createElement('td');//Létrehozok egy td-t a táblázat egyik celláját
-cell3_4.innerHTML = "magyar";//Megadom az értékét
-row3.appendChild(cell3_4);//Hozzá appendelem a sorhoz a cellát
-
-
-const row4 = document.createElement('tr');//Létrehozom a negyedik sort
-tbody.appendChild(row4);// Hozzá appendelem a tbody-hoz
-
-
-const cell4_1 = document.createElement('td');//Létrehozok egy td-t a táblázat egyik celláját
-cell4_1.innerHTML = "XVIII. század";//Megadom az értékét
-cell4_1.rowSpan = 2;//rowSpan-t állitok be hogy jó legyen az elrendezés
-row4.appendChild(cell4_1);//Hozzá appendelem a sorhoz a cellát
-
-const cell4_2 = document.createElement('td');//Létrehozok egy td-t a táblázat egyik celláját
-cell4_2.innerHTML = "1701-1714";//Megadom az értékét
-row4.appendChild(cell4_2);//Hozzá appendelem a sorhoz a cellát
-
-const cell4_3 = document.createElement('td');//Létrehozok egy td-t a táblázat egyik celláját
-cell4_3.innerHTML = "spanyol örökösödési haború";//Megadom az értékét
-cell4_3.colSpan = 2;//colSpan-t állitok be hogy jó legyen az elrendezés
-row4.appendChild(cell4_3);//Hozzá appendelem a sorhoz a cellát
-
-const cell4_4 = document.createElement('td');//Létrehozok egy td-t a táblázat egyik celláját
-cell4_4.innerHTML = "egyetemes";//Megadom az értékét
-row4.appendChild(cell4_4);//Hozzá appendelem a sorhoz a cellát
-
-const row5 = document.createElement('tr');//Létrehozom a negyedik sort
-tbody.appendChild(row5);// Hozzá appendelem a tbody-hoz
-
-const cell5_1 = document.createElement('td');//Létrehozok egy td-t a táblázat egyik celláját
-cell5_1.innerHTML = "1703-1711";//Megadom az értékét
-row5.appendChild(cell5_1);//Hozzá appendelem a sorhoz a cellát
-
-const cell5_2 = document.createElement('td');//Létrehozok egy td-t a táblázat egyik celláját
-cell5_2.innerHTML = "Rákóczi szabadságharc";//Megadom az értékét
-cell5_2.colSpan = 2;//colSpan-t állitok be hogy jó legyen az elrendezés
-row5.appendChild(cell5_2);//Hozzá appendelem a sorhoz a cellát
-
-const cell5_3 = document.createElement('td');//Létrehozok egy td-t a táblázat egyik celláját
-cell5_3.innerHTML = "magyar";//Megadom az értékét
-cell5_3.colSpan = 2;//colSpan-t állitok be hogy jó legyen az elrendezés
-row5.appendChild(cell5_3);//Hozzá appendelem a sorhoz a cellát
-
-const row6 = document.createElement('tr');//Létrehozom a negyedik sort
-tbody.appendChild(row6);// Hozzá appendelem a tbody-hoz
-
-
-const cell6_1 = document.createElement('td');//Létrehozok egy td-t a táblázat egyik celláját
-cell6_1.innerHTML = "XIX. század";//Megadom az értékét
-cell6_1.rowSpan = 2;//rowSpan-t állitok be hogy jó legyen az elrendezés
-row6.appendChild(cell6_1);//Hozzá appendelem a sorhoz a cellát
-
-const cell6_2 = document.createElement('td');//Létrehozok egy td-t a táblázat egyik celláját
-cell6_2.innerHTML = "1812";//Megadom az értékét
-row6.appendChild(cell6_2);//Hozzá appendelem a sorhoz a cellát
-
-const cell6_3 = document.createElement('td');//Létrehozok egy td-t a táblázat egyik celláját
-cell6_3.innerHTML = " Napóleon oroszországi hadjárata";//Megadom az értékét
-cell6_3.colSpan = 2;//colSpan-t állitok be hogy jó legyen az elrendezés
-row6.appendChild(cell6_3);//Hozzá appendelem a sorhoz a cellát
-
-const cell6_4 = document.createElement('td');//Létrehozok egy td-t a táblázat egyik celláját
-cell6_4.innerHTML = "egyetemes";//Megadom az értékét
-row6.appendChild(cell6_4);//Hozzá appendelem a sorhoz a cellát
-
-const row7 = document.createElement('tr');//Létrehozom a negyedik sort
-tbody.appendChild(row7);// Hozzá appendelem a tbody-hoz
-
-const cell7_1 = document.createElement('td');//Létrehozok egy td-t a táblázat egyik celláját
-cell7_1.innerHTML = "1809";//Megadom az értékét
-row7.appendChild(cell7_1);//Hozzá appendelem a sorhoz a cellát
-
-const cell7_2 = document.createElement('td');//Létrehozok egy td-t a táblázat egyik celláját
-cell7_2.innerHTML = "győri csata";//Megadom az értékét
-cell7_2.colSpan = 2;//colSpan-t állitok be hogy jó legyen az elrendezés
-row7.appendChild(cell7_2);//Hozzá appendelem a sorhoz a cellát
-
-const cell7_3 = document.createElement('td');//Létrehozok egy td-t a táblázat egyik celláját
-cell7_3.innerHTML = "magyar";//Megadom az értékét
-cell7_3.colSpan = 2;//colSpan-t állitok be hogy jó legyen az elrendezés
-row7.appendChild(cell7_3);//Hozzá appendelem a sorhoz a cellát
+    const new_date = { //Létrehozok egy új elemet
+        ido: idoV, //Értéket adok
+        evszam: evszamV,//Értéket adok
+        esemeny: esemenyV,//Értéket adok
+        tananyag: tananyagV,//Értéket adok
+        evszam2: evszam2V,//Értéket adok
+        esemeny2: esemeny2V,//Értéket adok
+        tananyag2: tananyag2V,//Értéket adok
+    }
+    
+    array.push(new_date)//Hozzárakom az arrayhez az új elemet
+    thisForm.reset()//thisFormot vagyis a táblázatunkat resetelem
+    renderTable();//Meghivom a renderTable függvényt mégegyszer
+})
