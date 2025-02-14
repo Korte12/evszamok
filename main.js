@@ -85,13 +85,36 @@ function renderTable() {
     }
 }
 
+function ValidateField(inputElement, ErrorMessage){//Függvényt definiálunk
+    let valid = true;//A valid értéke igaz
+    if(inputElement.value === ""){//Ha az inputElement üres
+        const parentElement = inputElement.parentElement //Az inputElement szülő elemét hozzá rendeljük a parentElementhez
+        const error = parentElement.querySelector(".error"); // Megkeressük az első elemet amin rajta van az error
+        if(error) { //Ha az error
+            error.innerHTML = ErrorMessage; // Kiirjuk a hibaüzenetet
+        }
+        valid = false // A valid változó értékét hamisra cseréljük
+    }
+    return valid //Valid értékkel térek vissza
+}
+function ValidateField2(firstElement, secondElement, ErrorMessage){ //Függvényt definiálunk
+    let valid = true //A valid értéke igaz
+    if(firstElement.value != "" && !ValidateField(secondElement, ErrorMessage)){ // Ellenőrizzük hogy a két mező közül az egyik kivan e töltve és ha igen akkor a másik mezőt validáljuk
+        valid = false //A valid értéke hamis
+    }
+    if(secondElement.value != "" && !ValidateField(firstElement, ErrorMessage)){ // Ellenőrizzük hogy a két mező közül az egyik kivan e töltve és ha igen akkor a másik mezőt validáljuk
+        valid = false //A valid értéke hamis
+    }
+    return valid //A valid értékkel térünk vissza
+}
+
 renderTable() //Meghivom a renderTable függvényt és az array paramétert fogja kapni
 
 function generateHeader(){ //Függvényt definiálunk
     const thead = document.createElement('thead'); //Létrehozok egy thead elemet
     table.appendChild(thead);//Hozzá appendelem a táblázathoz
     const tr = document.createElement('tr');//Létrehozok egy sor elemet
-    const headerW = ["Időszak", "Évszám", "Esemény", "Tananyag"];
+    const headerW = ["Időszak", "Évszám", "Esemény", "Tananyag"]; //Létrehozom a header tömböt
     thead.appendChild(tr);//Hozzá appendelem a fej részhez
     for (let i = 0; i < headerW.length; i++) { // Végigiterálunk a headerW tömb elemein
         const th = document.createElement('th'); //Létrehozok egy th-t
@@ -124,18 +147,65 @@ form.addEventListener('submit', function(e){//Eseménykezelőt adok a form-hoz
     const tananyag2V = tananyag2H.value///Eltárolom egy változóban az értéket
 
     const thisForm = e.currentTarget //Az aktuális form
-
-    const new_date = { //Létrehozok egy új elemet
-        ido: idoV, //Értéket adok
-        evszam: evszamV,//Értéket adok
-        esemeny: esemenyV,//Értéket adok
-        tananyag: tananyagV,//Értéket adok
-        evszam2: evszam2V,//Értéket adok
-        esemeny2: esemeny2V,//Értéket adok
-        tananyag2: tananyag2V,//Értéket adok
+    const errorElements = thisForm.querySelectorAll('.error') //Errorokat eltárolom egy változóban
+    for(const i of errorElements){ //Végigmegyek az errorokon és "" ra állitom az értéküket
+        i.innerHTML = ""
     }
-    
+    let valid = true; // A valid változó értéke igaz
+    if(!ValidateField(idoH, "A mező kitöltése kötelező!")){ //Ha a függvényünk hamissal tér vissza akkor kiirja az error üzenetet
+        valid = false; //A valid értéke hamis lesz
+    }
+
+    if(!ValidateField(evszamH, "A mező kitöltése kötelező!")){ //Ha a függvényünk hamissal tér vissza akkor kiirja az error üzenetet
+        valid = false; //A valid értéke hamis lesz
+    }
+    if(!ValidateField(esemenyH, "A mező kitöltése kötelező!")){ //Ha a függvényünk hamissal tér vissza akkor kiirja az error üzenetet
+        valid = false; //A valid értéke hamis lesz
+    }
+
+    if(!ValidateField(tananyagH, "A mező kitöltése kötelező!")){ //Ha a függvényünk hamissal tér vissza akkor kiirja az error üzenetet
+        valid = false; //A valid értéke hamis lesz
+    }
+
+    if (evszam2V || esemeny2V || tananyag2V) { // Megnézzük hogy a második mezők közül legalább egy ki van-e töltve
+       
+        if (!ValidateField2(evszamH, evszam2H, "A mező kitöltése kötelező!")) { //Ha a függvényünk hamissal tér vissza akkor kiirja az error üzenetet
+            valid = false; //A valid értéke hamis lesz
+        }
+        if (!ValidateField2(esemenyH, esemeny2H, "A mező kitöltése kötelező!")) { //Ha a függvényünk hamissal tér vissza akkor kiirja az error üzenetet
+            valid = false;
+        }
+        if (!ValidateField2(tananyagH, tananyag2H, "A mező kitöltése kötelező!")) { //Ha a függvényünk hamissal tér vissza akkor kiirja az error üzenetet
+            valid = false; //A valid értéke hamis lesz
+        }
+    }
+
+    if(valid){ //Ha valid
+        if (evszam2V === "" && esemeny2V === "" && tananyag2V === "") { //Ha az adott mezők üresek
+        const new_date = { //Létrehozok egy új elemet
+            ido: idoV, //Értéket adok
+            evszam: evszamV,//Értéket adok
+            esemeny: esemenyV,//Értéket adok
+            tananyag: tananyagV,//Értéket adok
+        }
+
     array.push(new_date)//Hozzárakom az arrayhez az új elemet
+
+        }
+        else {
+            const new_date = { //Létrehozok egy új elemet
+                ido: idoV, //Értéket adok
+                evszam: evszamV,//Értéket adok
+                esemeny: esemenyV,//Értéket adok
+                tananyag: tananyagV,//Értéket adok
+                evszam2: evszam2V,//Értéket adok
+                esemeny2: esemeny2V,//Értéket adok
+                tananyag2: tananyag2V,//Értéket adok
+            }
+            array.push(new_date)//Hozzárakom az arrayhez az új elemet
+        }
+    }
+
     thisForm.reset()//thisFormot vagyis a táblázatunkat resetelem
     renderTable();//Meghivom a renderTable függvényt mégegyszer
 })
